@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendToTube</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <h2>📹 TrendToTube</h2>
+
+  <div id="trend-info">No trend selected yet. Click a button on Google Trends.</div>
+
+  <div class="key-row">
+    <input type="password" id="api-key" placeholder="OpenAI API Key" />
+    <input type="password" id="pexels-key" placeholder="Pexels API Key" />
+    <button id="save-keys">Save Keys</button>
+  </div>
+
+  <button id="generate">Generate Script</button>
+
+  <textarea id="output" rows="10" placeholder="Generated script will appear here..."></textarea>
+
+  <div class="action-row">
+    <button id="tts">Speak Script</button>
+    <button id="visuals">Find Stock Visuals</button>
+    <button id="package">Download CapCut ZIP</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
