@@ -11,7 +11,7 @@
 - **Search Tabs** — Find any open tab by title or URL
 - **Shopping Nudge** — Reminds you to save your session on checkout pages
 - **Keyboard Shortcuts** — `Ctrl+Shift+S` to save, `Ctrl+Shift+T` to open popup
-- **TabFlow Pro** — Unlock higher session limits and other advanced features (no device sync/themes yet)
+- **TabFlow Pro** — Unlimited sessions, sync across devices, bulk operations, custom themes
 
 ---
 
@@ -74,6 +74,9 @@ Submit the same ZIP at [Firefox Add-ons](https://addons.mozilla.org/developers/)
 |--------|---------|
 | **Pro Subscription** | $2.99/month or $14.99/year (58% saving) |
 | **Freemium Limit** | 3 sessions free → prompts upgrade |
+| **Sync Across Devices** | Pro users: sessions saved via `chrome.storage.sync` |
+| **Bulk Operations** | Pro users: multi-select, bulk delete/export sessions |
+| **Custom Themes** | Pro users: Light / Dark / Auto theme |
 | **Shopping Nudge** | Affiliate hook on checkout pages |
 | **Review Funnel** | In-app review prompt to boost store ranking |
 

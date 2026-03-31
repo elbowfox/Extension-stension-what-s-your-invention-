@@ -33,9 +33,22 @@ chrome.commands.onCommand.addListener(async (command) => {
 
     if (saveable.length === 0) return;
 
-    const data = await chrome.storage.local.get([STORAGE_KEY_SESSIONS, STORAGE_KEY_PRO]);
-    const sessions = data[STORAGE_KEY_SESSIONS] || [];
-    const isPro = data[STORAGE_KEY_PRO] === true;
+    const localData = await chrome.storage.local.get([STORAGE_KEY_SESSIONS, STORAGE_KEY_PRO]);
+    const isPro = localData[STORAGE_KEY_PRO] === true;
+
+    let sessions = localData[STORAGE_KEY_SESSIONS] || [];
+
+    // Pro users: load from sync storage for up-to-date session list
+    if (isPro) {
+      try {
+        const syncData = await chrome.storage.sync.get(STORAGE_KEY_SESSIONS);
+        if (syncData[STORAGE_KEY_SESSIONS]) {
+          sessions = syncData[STORAGE_KEY_SESSIONS];
+        }
+      } catch (_) {
+        // Use local sessions as fallback
+      }
+    }
 
     if (!isPro && sessions.length >= 3) return; // free limit
 
@@ -44,6 +57,15 @@ chrome.commands.onCommand.addListener(async (command) => {
     });
 
     sessions.unshift({ id: Date.now().toString(), name, tabs: saveable, createdAt: new Date().toISOString() });
+
+    // Save to appropriate storage
+    if (isPro) {
+      try {
+        await chrome.storage.sync.set({ [STORAGE_KEY_SESSIONS]: sessions });
+      } catch (_) {
+        // Quota exceeded — fall back to local only
+      }
+    }
     await chrome.storage.local.set({ [STORAGE_KEY_SESSIONS]: sessions });
   }
 });
