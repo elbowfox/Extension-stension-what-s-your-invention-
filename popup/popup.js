@@ -224,12 +224,23 @@ function renderOpenTabs(filter) {
     const host = safeHostname(t.url || '');
     return [
       '<li class="tab-item" data-tabid="' + t.id + '">',
-      '  <img src="' + escHtml(src) + '" alt="" onerror="this.src=\'../icons/icon16.png\'">',
+      '  <img src="' + escHtml(src) + '" alt="">',
       '  <span class="tab-item-title">' + escHtml(t.title || 'Untitled') + '</span>',
       '  <span class="tab-item-url">' + escHtml(host) + '</span>',
       '</li>'
     ].join('');
   }).join('');
+
+  const tabImages = elOpenTabsList.querySelectorAll('img');
+  tabImages.forEach((img) => {
+    img.addEventListener('error', () => {
+      if (img.dataset.fallbackApplied === '1') {
+        return;
+      }
+      img.dataset.fallbackApplied = '1';
+      img.src = '../icons/icon16.png';
+    });
+  });
 }
 
 // Events
