@@ -7,13 +7,29 @@
 const STORAGE_KEY_SESSIONS = 'tabflow_sessions';
 const STORAGE_KEY_PRO = 'tabflow_pro';
 
+// Only save tabs whose URLs use restorable schemes (avoid internal browser pages).
+function isSaveableUrl(url) {
+  if (!url) return false;
+
+  // Allow common web and extension schemes; exclude internal ones like chrome://, edge://, about:, etc.
+  const allowedProtocols = new Set(['http:', 'https:', 'file:', 'ftp:', 'chrome-extension:']);
+
+  try {
+    const parsed = new URL(url);
+    return allowedProtocols.has(parsed.protocol);
+  } catch (e) {
+    // If the URL cannot be parsed, treat it as non-saveable.
+    return false;
+  }
+}
+
 // Handle keyboard shortcut: save session
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === 'save-session') {
     const tabs = await chrome.tabs.query({ currentWindow: true });
     const saveable = tabs
       .map(t => ({ title: t.title || 'Untitled', url: t.url || '', favicon: t.favIconUrl || '' }))
-      .filter(t => t.url && !t.url.startsWith('chrome://') && !t.url.startsWith('about:'));
+      .filter(t => isSaveableUrl(t.url));
 
     if (saveable.length === 0) return;
 
