@@ -317,13 +317,17 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function getFaviconUrl(url) {
+function getFaviconUrl(favIconUrl) {
   try {
-    const u = new URL(url);
-    return 'https://www.google.com/s2/favicons?sz=32&domain=' + u.hostname;
+    // Prefer the favicon URL provided by the tab (if any).
+    if (typeof favIconUrl === 'string' && favIconUrl.trim() !== '') {
+      return favIconUrl;
+    }
   } catch (_) {
-    return '../icons/icon16.png';
+    // Fall through to local fallback below.
   }
+  // Local bundled fallback icon; avoids third-party requests.
+  return '../icons/icon16.png';
 }
 
 function safeHostname(url) {
