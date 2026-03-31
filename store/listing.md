@@ -4,7 +4,7 @@
 TabFlow - Smart Tab & Session Manager
 
 ## Short Description (132 chars max)
-Save, restore, and **organize** your browser tab sessions in one click. Never lose your work again.
+Save, restore, and organize your browser tab sessions in one click. Never lose your work again.
 
 ## Full Description (up to 16,000 chars)
 
@@ -39,10 +39,6 @@ TabFlow is the simplest, most powerful tab session manager for Chrome. With a si
 
 Upgrade to **TabFlow Pro** for:
 - Unlimited saved sessions (free plan: 3 sessions)
-- Sync sessions across devices
-- Bulk operations
-- Custom themes
-- Priority support
 
 Pro plans: $2.99/month or $14.99/year (save 58%)
 

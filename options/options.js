@@ -103,8 +103,27 @@ async function importSessions(e) {
   try {
     const text = await file.text();
     const parsed = JSON.parse(text);
-    const imported = parsed.sessions || parsed;
-    if (!Array.isArray(imported)) throw new Error('Invalid format');
+    const raw = parsed.sessions || parsed;
+    if (!Array.isArray(raw)) throw new Error('Invalid format');
+
+    const imported = raw.filter(sess => {
+      return sess &&
+        typeof sess === 'object' &&
+        typeof sess.name === 'string' &&
+        Array.isArray(sess.tabs);
+    }).map(sess => ({
+      id: (typeof sess.id === 'string' && sess.id) ? sess.id : crypto.randomUUID(),
+      name: sess.name,
+      tabs: sess.tabs.filter(t => t && typeof t.url === 'string' && t.url).map(t => ({
+        title: typeof t.title === 'string' ? t.title : 'Untitled',
+        url: t.url,
+        favicon: typeof t.favicon === 'string' ? t.favicon : ''
+      })),
+      createdAt: typeof sess.createdAt === 'string' ? sess.createdAt : new Date().toISOString()
+    }));
+
+    if (imported.length === 0) throw new Error('No valid sessions found');
+
     allSessions = [...imported, ...allSessions];
     await saveSessions();
     renderSessionsTab();

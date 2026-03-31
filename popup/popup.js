@@ -92,7 +92,7 @@ async function saveSession() {
     title: t.title || 'Untitled',
     url: t.url || '',
     favicon: t.favIconUrl || ''
-  })).filter(t => t.url && !t.url.startsWith('chrome://') && !t.url.startsWith('about:'));
+  })).filter(t => isSaveableUrl(t.url));
 
   if (tabs.length === 0) {
     showToast('No saveable tabs found');
@@ -183,7 +183,7 @@ function renderSessions() {
   elSessionsList.innerHTML = sorted.map(session => {
     const favs = session.tabs.slice(0, 6).map(t => {
       const src = t.favicon || getFaviconUrl(t.url);
-      return '<img class="tab-favicon" src="' + escHtml(src) + '" alt="" onerror="this.src=\'../icons/icon16.png\'">';
+      return '<img class="tab-favicon" src="' + escHtml(src) + '" alt="">';
     }).join('');
     const more = session.tabs.length > 6 ? '<span class="tab-count-more">+' + (session.tabs.length - 6) + '</span>' : '';
     const dateStr = formatDate(session.createdAt);
@@ -203,6 +203,14 @@ function renderSessions() {
       '</div>'
     ].join('');
   }).join('');
+
+  elSessionsList.querySelectorAll('.tab-favicon').forEach((img) => {
+    img.addEventListener('error', () => {
+      if (img.dataset.fallbackApplied === '1') return;
+      img.dataset.fallbackApplied = '1';
+      img.src = '../icons/icon16.png';
+    });
+  });
 }
 
 // Open Tabs Search
@@ -320,6 +328,17 @@ function openUpgrade() {
 }
 
 // Utilities
+const SAVEABLE_PROTOCOLS = new Set(['http:', 'https:', 'file:', 'ftp:', 'chrome-extension:']);
+
+function isSaveableUrl(url) {
+  if (!url) return false;
+  try {
+    return SAVEABLE_PROTOCOLS.has(new URL(url).protocol);
+  } catch (_) {
+    return false;
+  }
+}
+
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
