@@ -11,7 +11,7 @@
 - **Search Tabs** — Find any open tab by title or URL
 - **Shopping Nudge** — Reminds you to save your session on checkout pages
 - **Keyboard Shortcuts** — `Ctrl+Shift+S` to save, `Ctrl+Shift+T` to open popup
-- **TabFlow Pro** — Unlimited sessions, device sync, custom themes ($2.99/mo or $14.99/yr)
+- **TabFlow Pro** — Unlock higher session limits and other advanced features (no device sync/themes yet)
 
 ---
 
