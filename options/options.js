@@ -135,15 +135,7 @@ function setupGeneral() {
   const themeSelector = document.getElementById('theme-selector');
   const themeLock = document.getElementById('theme-lock');
   if (isPro) {
-    themeLock.classList.add('hidden');
-    themeSelector.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        currentTheme = btn.dataset.theme;
-        await chrome.storage.local.set({ [STORAGE_KEY_THEME]: currentTheme });
-        applyTheme(currentTheme);
-        showToast('Theme changed to ' + currentTheme);
-      });
-    });
+    enableThemeButtons();
   } else {
     // Disable theme buttons for free users, show lock
     themeSelector.querySelectorAll('.theme-btn').forEach(btn => {
@@ -360,20 +352,7 @@ async function activateLicense() {
     renderSessionsTab();
 
     // Enable theme buttons
-    const themeSelector = document.getElementById('theme-selector');
-    const themeLock = document.getElementById('theme-lock');
-    themeLock.classList.add('hidden');
-    themeSelector.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.disabled = false;
-      btn.style.opacity = '';
-      btn.style.cursor = '';
-      btn.addEventListener('click', async () => {
-        currentTheme = btn.dataset.theme;
-        await chrome.storage.local.set({ [STORAGE_KEY_THEME]: currentTheme });
-        applyTheme(currentTheme);
-        showToast('Theme changed to ' + currentTheme);
-      });
-    });
+    enableThemeButtons();
   } else {
     statusEl.textContent = 'Invalid license key. Please check and try again.';
     statusEl.className = 'license-status error';
@@ -381,6 +360,23 @@ async function activateLicense() {
 }
 
 // ── Utilities ────────────────────────────────────────────────────────────────
+function enableThemeButtons() {
+  const themeSelector = document.getElementById('theme-selector');
+  const themeLock = document.getElementById('theme-lock');
+  themeLock.classList.add('hidden');
+  themeSelector.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.disabled = false;
+    btn.style.opacity = '';
+    btn.style.cursor = '';
+    btn.addEventListener('click', async () => {
+      currentTheme = btn.dataset.theme;
+      await chrome.storage.local.set({ [STORAGE_KEY_THEME]: currentTheme });
+      applyTheme(currentTheme);
+      showToast('Theme changed to ' + currentTheme);
+    });
+  });
+}
+
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
