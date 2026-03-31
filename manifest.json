@@ -5,8 +5,7 @@
   "description": "Save, restore, and organize your browser tab sessions in one click. Boost productivity, reduce clutter, and never lose your work again.",
   "permissions": [
     "tabs",
-    "storage",
-    "alarms"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",
