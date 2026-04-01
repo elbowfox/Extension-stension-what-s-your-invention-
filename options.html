@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendToTube Options</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; color: #111827; }
+    h1 { color: #10b981; font-size: 1.4rem; }
+    label { display: block; margin-top: 16px; font-weight: bold; font-size: 0.9rem; }
+    input { width: 100%; box-sizing: border-box; padding: 8px 10px; margin-top: 4px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; }
+    button { margin-top: 20px; padding: 10px 20px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
+    button:hover { opacity: 0.9; }
+    #status { margin-top: 12px; color: #10b981; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>📹 TrendToTube Options</h1>
+
+  <label for="openai-key">OpenAI API Key</label>
+  <input type="password" id="openai-key" placeholder="sk-..." />
+
+  <label for="pexels-key">Pexels API Key</label>
+  <input type="password" id="pexels-key" placeholder="Pexels API key" />
+
+  <button id="save">Save Settings</button>
+  <div id="status"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>
