@@ -77,3 +77,42 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     chrome.tabs.create({ url: chrome.runtime.getURL('options/options.html') + '?welcome=1' });
   }
 });
+
+// Handle messages from content scripts (e.g. shopping nudge "Save" button)
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message.action === 'save-session-quick') {
+    (async () => {
+      const tabs = await chrome.tabs.query({ currentWindow: true });
+      const saveable = tabs
+        .map(t => ({ title: t.title || 'Untitled', url: t.url || '', favicon: t.favIconUrl || '' }))
+        .filter(t => isSaveableUrl(t.url));
+
+      if (saveable.length === 0) { sendResponse({ ok: false }); return; }
+
+      const localData = await chrome.storage.local.get([STORAGE_KEY_SESSIONS, STORAGE_KEY_PRO]);
+      const isPro = localData[STORAGE_KEY_PRO] === true;
+      let sessions = localData[STORAGE_KEY_SESSIONS] || [];
+
+      if (isPro) {
+        try {
+          const syncData = await chrome.storage.sync.get(STORAGE_KEY_SESSIONS);
+          if (syncData[STORAGE_KEY_SESSIONS]) sessions = syncData[STORAGE_KEY_SESSIONS];
+        } catch (_) { /* use local */ }
+      }
+
+      if (!isPro && sessions.length >= 3) { sendResponse({ ok: false, reason: 'limit' }); return; }
+
+      const name = 'Session ' + new Date().toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+      sessions.unshift({ id: Date.now().toString(), name, tabs: saveable, createdAt: new Date().toISOString() });
+
+      if (isPro) {
+        try { await chrome.storage.sync.set({ [STORAGE_KEY_SESSIONS]: sessions }); } catch (_) { /* quota */ }
+      }
+      await chrome.storage.local.set({ [STORAGE_KEY_SESSIONS]: sessions });
+      sendResponse({ ok: true });
+    })();
+    return true; // keep message channel open for async response
+  }
+});
