@@ -51,7 +51,10 @@
     document.getElementById('tf-save-btn').addEventListener('click', () => {
       bar.remove();
       chrome.storage.local.set({ tabflow_nudge_dismissed: true });
-      chrome.runtime.sendMessage({ action: 'save-session-quick' });
+      chrome.runtime.sendMessage({ action: 'save-session-quick' }, (_response) => {
+        // Ignore errors (e.g. background service worker not yet ready)
+        void chrome.runtime.lastError;
+      });
     });
 
     document.getElementById('tf-close-btn').addEventListener('click', () => {

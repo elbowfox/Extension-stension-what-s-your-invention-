@@ -369,11 +369,11 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function getFaviconUrl(favIconUrl) {
+function getFaviconUrl(providedFavIconUrl) {
   try {
     // Prefer the favicon URL provided by the tab (if any).
-    if (typeof favIconUrl === 'string' && favIconUrl.trim() !== '') {
-      return favIconUrl;
+    if (typeof providedFavIconUrl === 'string' && providedFavIconUrl.trim() !== '') {
+      return providedFavIconUrl;
     }
   } catch (_) {
     // Fall through to local fallback below.
