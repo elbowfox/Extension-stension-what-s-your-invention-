@@ -1,0 +1,510 @@
+# Instincts generated from https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+# Generated: 2026-04-03T20:40:04.845Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: Extension-stension-what-s-your-invention--commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Commit Length
+
+## Action
+
+Write moderate-length commit messages (~51 characters)
+
+## Evidence
+
+- Average commit message length: 51 chars
+- Based on 18 commits
+
+---
+id: Extension-stension-what-s-your-invention--naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: Extension-stension-what-s-your-invention--import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: Extension-stension-what-s-your-invention--export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: Extension-stension-what-s-your-invention--test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: Extension-stension-what-s-your-invention--workflow-feature-development-across-extension-files
+trigger: "when doing feature development across extension files"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Workflow Feature Development Across Extension Files
+
+## Action
+
+Follow the feature-development-across-extension-files workflow:
+1. Edit or add implementation files (background.js, content.js, popup/popup.js, options/options.js, etc.)
+2. Update UI files as needed (popup/popup.html, options/options.html, corresponding .css)
+3. Update manifest.json to reflect new permissions or features
+4. Update documentation (README.md, store/listing.md, privacy-policy.html)
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: background.js, content.js, popup/popup.js
+
+---
+id: Extension-stension-what-s-your-invention--workflow-single-file-hotfix-or-enhancement
+trigger: "when doing single file hotfix or enhancement"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Workflow Single File Hotfix Or Enhancement
+
+## Action
+
+Follow the single-file-hotfix-or-enhancement workflow:
+1. Edit the relevant single file (e.g., content.js, popup/popup.js, background.js, manifest.json, options/options.html, README.md)
+2. Commit with a message describing the change
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~6x per month
+- Files: content.js, popup/popup.js, background.js
+
+---
+id: Extension-stension-what-s-your-invention--workflow-code-review-fixes-across-ui-and-docs
+trigger: "when doing code review fixes across ui and docs"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Workflow Code Review Fixes Across Ui And Docs
+
+## Action
+
+Follow the code-review-fixes-across-ui-and-docs workflow:
+1. Edit UI logic files (options/options.js, popup/popup.js)
+2. Update documentation or store listing files (privacy-policy.html, store/listing.md)
+3. Commit with a message referencing review issues
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: options/options.js, popup/popup.js, privacy-policy.html
+
+---
+id: Extension-stension-what-s-your-invention--workflow-initialization-or-merge-of-complete-extension
+trigger: "when doing initialization or merge of complete extension"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Workflow Initialization Or Merge Of Complete Extension
+
+## Action
+
+Follow the initialization-or-merge-of-complete-extension workflow:
+1. Add or merge all core extension files (background.js, content.js, popup, options, manifest, icons, docs, etc.)
+2. Commit with a message indicating initialization or merge
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: README.md, background.js, content.js
+
+---
+id: extension-stension-what-s-your-invention--camelCase-files
+trigger: "When creating or renaming a JavaScript source file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  CamelCase Files
+
+## Action
+
+Name the file using camelCase (e.g., content.js, background.js)
+
+## Evidence
+
+- Pattern in files: content.js, background.js, popup/popup.js, options/options.js
+
+---
+id: extension-stension-what-s-your-invention--camelCase-functions
+trigger: "When defining a function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  CamelCase Functions
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: extension-stension-what-s-your-invention--pascalCase-classes
+trigger: "When defining a class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  PascalCase Classes
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: extension-stension-what-s-your-invention--screaming-snake-constants
+trigger: "When defining a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Screaming Snake Constants
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: extension-stension-what-s-your-invention--relative-imports
+trigger: "When importing modules in JavaScript files"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Relative Imports
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: extension-stension-what-s-your-invention--named-exports
+trigger: "When exporting functions or variables from a module"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Named Exports
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: extension-stension-what-s-your-invention--try-catch-error-handling
+trigger: "When handling errors in JavaScript code"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Try Catch Error Handling
+
+## Action
+
+Wrap error-prone code in try-catch blocks
+
+## Evidence
+
+- Pattern in errorHandling.style
+
+---
+id: extension-stension-what-s-your-invention--global-error-handler
+trigger: "When setting up error handling for the extension"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Global Error Handler
+
+## Action
+
+Implement a global error handler
+
+## Evidence
+
+- Pattern in errorHandling.globalHandler
+
+---
+id: extension-stension-what-s-your-invention--single-package-structure
+trigger: "When organizing the project structure"
+confidence: 0.85
+domain: architecture
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Single Package Structure
+
+## Action
+
+Use a single-package folder structure with separate folders for icons, options, popup, and store
+
+## Evidence
+
+- Pattern in architecture.folderStructure.commonFolders
+
+---
+id: extension-stension-what-s-your-invention--test-location-separate
+trigger: "When adding or updating tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Test Location Separate
+
+## Action
+
+Place test files in a separate directory from source files
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: extension-stension-what-s-your-invention--commit-message-freeform
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Commit Message Freeform
+
+## Action
+
+Use a short, freeform message describing the change (no enforced prefix)
+
+## Evidence
+
+- Pattern in commits.type
+- Examples: 'Add generated icons', 'Update content.js'
+
+---
+id: extension-stension-what-s-your-invention--commit-message-one-action
+trigger: "When making a commit"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Commit Message One Action
+
+## Action
+
+Ensure each commit represents a single logical action or fix
+
+## Evidence
+
+- Pattern in commits.examples
+- Workflow: single-file-hotfix-or-enhancement
+
+---
+id: extension-stension-what-s-your-invention--feature-development-across-files
+trigger: "When adding a major feature or making a significant update"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Feature Development Across Files
+
+## Action
+
+Edit implementation files, update UI files, update manifest.json, and update documentation in a single commit
+
+## Evidence
+
+- Workflow: feature-development-across-extension-files
+- Example commits involving multiple files
+
+---
+id: extension-stension-what-s-your-invention--single-file-hotfix
+trigger: "When fixing a bug or making a small enhancement"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Single File Hotfix
+
+## Action
+
+Edit and commit changes to a single file with a descriptive message
+
+## Evidence
+
+- Workflow: single-file-hotfix-or-enhancement
+- Example: 'Update content.js'
+
+---
+id: extension-stension-what-s-your-invention--code-review-fix-across-ui-docs
+trigger: "When addressing code review feedback or preparing for release"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Code Review Fix Across Ui Docs
+
+## Action
+
+Edit UI logic files and documentation/store listing files in a single commit referencing review issues
+
+## Evidence
+
+- Workflow: code-review-fixes-across-ui-and-docs
+
+---
+id: extension-stension-what-s-your-invention--init-or-merge-complete-extension
+trigger: "When initializing the project or merging a major branch"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: elbowfox/Extension-stension-what-s-your-invention-
+---
+
+# Extension Stension What S Your Invention  Init Or Merge Complete Extension
+
+## Action
+
+Add or merge all core extension files and commit with a message indicating initialization or merge
+
+## Evidence
+
+- Workflow: initialization-or-merge-of-complete-extension
+- Commit: 'Initial plan'
+
