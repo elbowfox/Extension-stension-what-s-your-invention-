@@ -39,12 +39,16 @@ TabFlow is the simplest, most powerful tab session manager for Chrome. With a si
 
 Upgrade to **TabFlow Pro** for:
 - Unlimited saved sessions (free plan: 3 sessions)
+- **Sync across devices** — sessions automatically sync across all your Chrome browsers
+- **Bulk session operations** — select, delete, or export multiple sessions at once
+- **Custom themes** — Light, Dark, or Auto (follows your OS setting)
+- Priority support
 
 Pro plans: $2.99/month or $14.99/year (save 58%)
 
 ---
 
-TabFlow is built with privacy in mind. All your session data is stored locally on your device — nothing is sent to any server.
+TabFlow is built with privacy in mind. All your session data is stored on your device or in your personal Chrome Sync account — nothing is sent to third-party servers.
 
 ## Category
 Productivity

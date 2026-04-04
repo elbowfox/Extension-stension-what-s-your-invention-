@@ -58,6 +58,25 @@
         </div>
 
         <div class="card">
+          <h3>Appearance <span class="pro-tag">PRO</span></h3>
+          <div class="setting-row">
+            <div>
+              <strong>Color theme</strong>
+              <p>Choose the appearance of TabFlow across popup and settings</p>
+            </div>
+            <div id="theme-selector" class="theme-selector">
+              <button class="theme-btn active" data-theme="light">Light</button>
+              <button class="theme-btn" data-theme="dark">Dark</button>
+              <button class="theme-btn" data-theme="auto">Auto</button>
+            </div>
+          </div>
+          <div id="theme-lock" class="feature-lock hidden">
+            &#128274; Custom themes require TabFlow Pro
+            <a href="#upgrade" class="btn btn-primary btn-sm" data-nav="upgrade">Upgrade</a>
+          </div>
+        </div>
+
+        <div class="card">
           <h3>Shopping Reminder</h3>
           <div class="setting-row">
             <div>
@@ -103,12 +122,40 @@
       <!-- Sessions -->
       <section id="section-sessions" class="section">
         <h1>Saved Sessions</h1>
+        <div id="bulk-toolbar" class="bulk-toolbar hidden">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+            <input type="checkbox" id="cb-select-all" style="width:16px;height:16px;accent-color:var(--primary)" />
+            Select all
+          </label>
+          <span id="bulk-selected-count" class="bulk-count">0 selected</span>
+          <button id="btn-export-selected" class="btn btn-secondary">Export Selected</button>
+          <button id="btn-delete-selected" class="btn btn-danger">Delete Selected</button>
+        </div>
         <div id="sessions-overview" class="sessions-overview"></div>
       </section>
 
       <!-- Upgrade -->
       <section id="section-upgrade" class="section">
         <h1>TabFlow Pro</h1>
+
+        <!-- Shown only when Pro is already active -->
+        <div id="pro-active-banner" class="pro-active-banner hidden">
+          <div class="pro-active-icon">&#10024;</div>
+          <div>
+            <h2>TabFlow Pro is Active</h2>
+            <p>You have full access to all Pro features on this device.</p>
+            <ul class="pro-features-list">
+              <li>&#10003; Unlimited sessions</li>
+              <li>&#10003; Sync across devices</li>
+              <li>&#10003; Bulk operations</li>
+              <li>&#10003; Custom themes</li>
+              <li>&#10003; Priority support</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Shown only for free users -->
+        <div id="upgrade-hero-section">
 
         <div class="upgrade-hero">
           <div class="upgrade-hero-icon">&#128640;</div>
@@ -123,8 +170,9 @@
             <ul class="feature-list">
               <li>&#10003; Unlimited sessions</li>
               <li>&#10003; Sync across devices</li>
+              <li>&#10003; Bulk operations</li>
+              <li>&#10003; Custom themes</li>
               <li>&#10003; Priority support</li>
-              <li>&#10003; No ads</li>
             </ul>
             <a href="https://tabflow.pro/upgrade?plan=monthly&ref=options" target="_blank" class="btn btn-primary btn-full" id="btn-monthly">Get Monthly</a>
           </div>
@@ -143,6 +191,8 @@
             <a href="https://tabflow.pro/upgrade?plan=yearly&ref=options" target="_blank" class="btn btn-primary btn-full" id="btn-yearly">Get Annual</a>
           </div>
         </div>
+
+        </div><!-- end upgrade-hero-section -->
 
         <div class="license-section">
           <h3>Already have a license?</h3>
