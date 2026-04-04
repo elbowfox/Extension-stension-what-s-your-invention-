@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TabFlow Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../icons/icon32.png" alt="TabFlow" width="28" height="28" />
+        <span>TabFlow</span>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#general" class="nav-link active" data-section="general">General</a></li>
+        <li><a href="#sessions" class="nav-link" data-section="sessions">Sessions</a></li>
+        <li><a href="#upgrade" class="nav-link nav-pro" data-section="upgrade">&#10024; Upgrade to Pro</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <main class="content">
+
+      <!-- Welcome banner (shown on first install) -->
+      <div id="welcome-banner" class="welcome-banner hidden">
+        <div class="welcome-icon">&#127881;</div>
+        <div>
+          <h2>Welcome to TabFlow!</h2>
+          <p>Your smart tab session manager is ready. Save your first session by clicking the TabFlow icon in your toolbar.</p>
+        </div>
+      </div>
+
+      <!-- General Settings -->
+      <section id="section-general" class="section active">
+        <h1>General Settings</h1>
+
+        <div class="card">
+          <h3>Keyboard Shortcuts</h3>
+          <div class="setting-row">
+            <div>
+              <strong>Save Session</strong>
+              <p>Quickly save all open tabs</p>
+            </div>
+            <kbd>Ctrl + Shift + S</kbd>
+          </div>
+          <div class="setting-row">
+            <div>
+              <strong>Open TabFlow</strong>
+              <p>Open the TabFlow popup</p>
+            </div>
+            <kbd>Ctrl + Shift + T</kbd>
+          </div>
+          <p class="hint">To customise shortcuts, visit <a href="chrome://extensions/shortcuts" target="_blank">chrome://extensions/shortcuts</a></p>
+        </div>
+
+        <div class="card">
+          <h3>Appearance <span class="pro-tag">PRO</span></h3>
+          <div class="setting-row">
+            <div>
+              <strong>Color theme</strong>
+              <p>Choose the appearance of TabFlow across popup and settings</p>
+            </div>
+            <div id="theme-selector" class="theme-selector">
+              <button class="theme-btn active" data-theme="light">Light</button>
+              <button class="theme-btn" data-theme="dark">Dark</button>
+              <button class="theme-btn" data-theme="auto">Auto</button>
+            </div>
+          </div>
+          <div id="theme-lock" class="feature-lock hidden">
+            &#128274; Custom themes require TabFlow Pro
+            <a href="#upgrade" class="btn btn-primary btn-sm" data-nav="upgrade">Upgrade</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Shopping Reminder</h3>
+          <div class="setting-row">
+            <div>
+              <strong>Show save reminder on shopping sites</strong>
+              <p>Displays a nudge to save your session when visiting checkout pages</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-nudge" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Data</h3>
+          <div class="setting-row">
+            <div>
+              <strong>Export all sessions</strong>
+              <p>Download your saved sessions as a JSON file</p>
+            </div>
+            <button id="btn-export" class="btn btn-secondary">Export</button>
+          </div>
+          <div class="setting-row">
+            <div>
+              <strong>Import sessions</strong>
+              <p>Restore sessions from a JSON backup</p>
+            </div>
+            <label class="btn btn-secondary" style="cursor:pointer">
+              Import
+              <input type="file" id="file-import" accept=".json" style="display:none" />
+            </label>
+          </div>
+          <div class="setting-row danger-row">
+            <div>
+              <strong>Delete all sessions</strong>
+              <p>Permanently remove all saved sessions</p>
+            </div>
+            <button id="btn-delete-all" class="btn btn-danger">Delete All</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sessions -->
+      <section id="section-sessions" class="section">
+        <h1>Saved Sessions</h1>
+        <div id="bulk-toolbar" class="bulk-toolbar hidden">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+            <input type="checkbox" id="cb-select-all" style="width:16px;height:16px;accent-color:var(--primary)" />
+            Select all
+          </label>
+          <span id="bulk-selected-count" class="bulk-count">0 selected</span>
+          <button id="btn-export-selected" class="btn btn-secondary">Export Selected</button>
+          <button id="btn-delete-selected" class="btn btn-danger">Delete Selected</button>
+        </div>
+        <div id="sessions-overview" class="sessions-overview"></div>
+      </section>
+
+      <!-- Upgrade -->
+      <section id="section-upgrade" class="section">
+        <h1>TabFlow Pro</h1>
+
+        <!-- Shown only when Pro is already active -->
+        <div id="pro-active-banner" class="pro-active-banner hidden">
+          <div class="pro-active-icon">&#10024;</div>
+          <div>
+            <h2>TabFlow Pro is Active</h2>
+            <p>You have full access to all Pro features on this device.</p>
+            <ul class="pro-features-list">
+              <li>&#10003; Unlimited sessions</li>
+              <li>&#10003; Sync across devices</li>
+              <li>&#10003; Bulk operations</li>
+              <li>&#10003; Custom themes</li>
+              <li>&#10003; Priority support</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Shown only for free users -->
+        <div id="upgrade-hero-section">
+
+        <div class="upgrade-hero">
+          <div class="upgrade-hero-icon">&#128640;</div>
+          <h2>Unlock the full power of TabFlow</h2>
+          <p>Go Pro and take your productivity to the next level</p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card" id="plan-monthly">
+            <h3>Monthly</h3>
+            <div class="price">$2.99<span>/mo</span></div>
+            <ul class="feature-list">
+              <li>&#10003; Unlimited sessions</li>
+              <li>&#10003; Sync across devices</li>
+              <li>&#10003; Bulk operations</li>
+              <li>&#10003; Custom themes</li>
+              <li>&#10003; Priority support</li>
+            </ul>
+            <a href="https://tabflow.pro/upgrade?plan=monthly&ref=options" target="_blank" class="btn btn-primary btn-full" id="btn-monthly">Get Monthly</a>
+          </div>
+
+          <div class="pricing-card featured" id="plan-yearly">
+            <div class="badge-popular">Most Popular</div>
+            <h3>Annual</h3>
+            <div class="price">$14.99<span>/yr</span></div>
+            <div class="price-save">Save 58%</div>
+            <ul class="feature-list">
+              <li>&#10003; Everything in Monthly</li>
+              <li>&#10003; Bulk session operations</li>
+              <li>&#10003; Custom themes</li>
+              <li>&#10003; Export/Import sync</li>
+            </ul>
+            <a href="https://tabflow.pro/upgrade?plan=yearly&ref=options" target="_blank" class="btn btn-primary btn-full" id="btn-yearly">Get Annual</a>
+          </div>
+        </div>
+
+        </div><!-- end upgrade-hero-section -->
+
+        <div class="license-section">
+          <h3>Already have a license?</h3>
+          <div class="license-row">
+            <input type="text" id="license-key" placeholder="Enter license key..." class="input" />
+            <button id="btn-activate" class="btn btn-primary">Activate</button>
+          </div>
+          <div id="license-status" class="license-status"></div>
+        </div>
+
+        <p class="refund-note">&#128274; Secure payment &nbsp;&bull;&nbsp; 30-day money-back guarantee</p>
+      </section>
+
+      <!-- About -->
+      <section id="section-about" class="section">
+        <h1>About TabFlow</h1>
+        <div class="card">
+          <div class="about-logo">
+            <img src="../icons/icon128.png" alt="TabFlow" width="64" height="64" />
+            <div>
+              <h2>TabFlow</h2>
+              <p>Version 1.0.0</p>
+            </div>
+          </div>
+          <p style="margin-top:16px;color:#64748b">Smart Tab &amp; Session Manager — save, restore, and organize your browser sessions with one click.</p>
+          <div class="about-links">
+            <a href="https://tabflow.pro?ref=about" target="_blank">Website</a>
+            <a href="https://tabflow.pro/privacy?ref=about" target="_blank">Privacy Policy</a>
+            <a href="https://tabflow.pro/support?ref=about" target="_blank">Support</a>
+            <a href="https://tabflow.pro/upgrade?ref=about" target="_blank">Upgrade</a>
+          </div>
+        </div>
+
+        <div class="card review-card">
+          <h3>&#11088; Love TabFlow?</h3>
+          <p>Leave us a review on the Chrome Web Store — it makes a huge difference!</p>
+          <a href="https://chrome.google.com/webstore/search/TabFlow" target="_blank" class="btn btn-primary" style="margin-top:12px;display:inline-block">Write a Review</a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="options.js"></script>
+</body>
+</html>
