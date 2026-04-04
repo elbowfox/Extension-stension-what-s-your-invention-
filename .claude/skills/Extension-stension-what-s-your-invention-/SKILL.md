@@ -4,126 +4,113 @@
 > Auto-generated skill from repository analysis
 
 ## Overview
-This skill teaches you the core development patterns, coding conventions, and workflows used in the `Extension-stension-what-s-your-invention-` JavaScript browser extension repository. You'll learn how to structure your code, follow commit and file organization standards, and efficiently contribute new features, fixes, and documentation updates. The guide also covers how to run and write tests, and provides handy commands for common development tasks.
+This skill covers the development patterns, coding conventions, and workflows for the `Extension-stension-what-s-your-invention-` JavaScript codebase. The repository is focused on browser extension development, with a strong emphasis on UI (options and popup), documentation, and store listing updates. The skill outlines how to structure code, manage features, respond to code reviews, and maintain consistency across the project.
 
 ## Coding Conventions
 
 - **File Naming:**  
-  Use `camelCase` for JavaScript files and folders.  
-  *Example:*  
+  Use camelCase for filenames.  
+  _Example:_  
   ```
   background.js
-  content.js
-  popup/popup.js
   options/options.js
+  popup/popup.js
   ```
 
 - **Import Style:**  
   Use relative imports for modules.  
-  *Example:*  
+  _Example:_  
   ```js
-  import { myFunction } from './utils/helper.js';
+  import { getSettings } from './settings.js';
   ```
 
 - **Export Style:**  
-  Use named exports.  
-  *Example:*  
+  Use named exports for functions and constants.  
+  _Example:_  
   ```js
-  // In utils/helper.js
-  export function myFunction() { ... }
+  // In options.js
+  export function saveOptions() { ... }
+  export const DEFAULTS = { ... };
   ```
 
 - **Commit Messages:**  
-  - Freeform, no strict prefixes.
-  - Average length: ~51 characters.
-  - Example:  
-    ```
-    Fix popup not updating after option change
-    ```
+  Freeform, typically around 59 characters.  
+  _Example:_  
+  ```
+  Add dark mode toggle to options page
+  ```
 
 ## Workflows
 
-### Feature Development Across Extension Files
-**Trigger:** When adding a new major feature or performing a significant update across the extension.  
-**Command:** `/feature`
+### Feature Development with UI and Listing Update
+**Trigger:** When adding a new feature or major enhancement, especially for Pro-tier or monetization, ensuring both UI and store listing are updated.  
+**Command:** `/feature-ui-listing`
 
-1. Edit or add implementation files (e.g., `background.js`, `content.js`, `popup/popup.js`, `options/options.js`).
-2. Update UI files as needed (`popup/popup.html`, `options/options.html`, and corresponding `.css`).
-3. Update `manifest.json` to reflect new permissions or features.
-4. Update documentation (`README.md`, `store/listing.md`, `privacy-policy.html`).
-5. Commit all related changes together.
+1. Edit or create implementation files:
+    - `background.js`
+    - `options/options.js`
+    - `popup/popup.js`
+2. Update corresponding UI files:
+    - `options/options.html`
+    - `options/options.css`
+    - `popup/popup.css`
+3. Update documentation:
+    - `README.md`
+4. Update store listing:
+    - `store/listing.md`
 
-*Example commit message:*  
+_Example: Adding a new premium feature toggle to the options page_
+```js
+// options/options.js
+export function enablePremiumFeature() {
+  // logic here
+}
 ```
-Add dark mode support to popup and options pages
+```html
+<!-- options/options.html -->
+<label>
+  <input type="checkbox" id="premiumFeature" />
+  Enable Premium Feature
+</label>
 ```
-
----
-
-### Single-File Hotfix or Enhancement
-**Trigger:** When you need to quickly fix a bug or tweak a specific feature in one file.  
-**Command:** `/hotfix`
-
-1. Edit the relevant single file (e.g., `content.js`, `popup/popup.js`, `background.js`, `manifest.json`, `options/options.html`, `README.md`).
-2. Commit with a message describing the change.
-
-*Example commit message:*  
-```
-Fix typo in options/options.html
-```
-
----
-
-### Code Review Fixes Across UI and Docs
-**Trigger:** When addressing code review feedback or polishing the extension for release/store submission.  
-**Command:** `/review-fix`
-
-1. Edit UI logic files as needed (`options/options.js`, `popup/popup.js`).
-2. Update documentation or store listing files (`privacy-policy.html`, `store/listing.md`).
-3. Commit with a message referencing review issues.
-
-*Example commit message:*  
-```
-Update privacy policy and fix popup button alignment per review
+```css
+/* options/options.css */
+#premiumFeature {
+  accent-color: gold;
+}
 ```
 
----
+### Code Review Fixes UI
+**Trigger:** When receiving code review feedback on UI logic or presentation and needing to make targeted fixes.  
+**Command:** `/review-fix-ui`
 
-### Initialization or Merge of Complete Extension
-**Trigger:** When initializing the project or merging a major branch with the full extension codebase.  
-**Command:** `/init-extension`
+1. Edit `options/options.js` to fix logic or extract functions.
+2. Edit `options/options.html` to adjust UI structure or elements.
 
-1. Add or merge all core extension files (`background.js`, `content.js`, `popup`, `options`, `manifest.json`, `icons`, docs, etc.).
-2. Commit with a message indicating initialization or merge.
+_Example: Refactoring a function after review_
+```js
+// Before
+function save() { /* ... */ }
 
-*Example commit message:*  
-```
-Initial commit: add all extension files and docs
+// After
+export function saveOptions() { /* ... */ }
 ```
 
 ## Testing Patterns
 
-- **Test Framework:** Unknown (not detected).
-- **Test File Pattern:** Files matching `*.test.*` (e.g., `popup.test.js`, `options.test.js`).
-- **General Approach:**  
-  - Place test files alongside or near the files they test.
-  - Use descriptive test names.
-  - Example test file:
-    ```js
-    // popup/popup.test.js
-    import { someFunction } from './popup.js';
-
-    test('someFunction returns expected value', () => {
-      expect(someFunction()).toBe('expected');
-    });
-    ```
+- **Framework:** Unknown (not detected)
+- **File Pattern:** Test files follow the `*.test.*` naming convention.
+  _Example:_  
+  ```
+  options.test.js
+  popup.test.js
+  ```
+- **Location:** Test files are placed alongside the files they test.
 
 ## Commands
 
-| Command           | Purpose                                                        |
-|-------------------|----------------------------------------------------------------|
-| /feature          | Start a major feature or update across multiple extension files |
-| /hotfix           | Apply a quick fix or enhancement to a single file              |
-| /review-fix       | Address code review feedback across UI and docs                |
-| /init-extension   | Initialize or merge the complete extension codebase             |
+| Command             | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| /feature-ui-listing | Start a feature or enhancement affecting UI and store listing            |
+| /review-fix-ui      | Apply code review fixes specifically to UI files                        |
 ```
