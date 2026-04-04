@@ -9,6 +9,7 @@ const FREE_SESSION_LIMIT = 3;
 const UPGRADE_URL = 'https://tabflow.pro/upgrade?ref=popup';
 const STORAGE_KEY_SESSIONS = 'tabflow_sessions';
 const STORAGE_KEY_PRO = 'tabflow_pro';
+const STORAGE_KEY_THEME = 'tabflow_theme';
 
 // State
 let allSessions = [];
@@ -48,14 +49,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Data helpers
 async function loadData() {
-  const data = await chrome.storage.local.get([STORAGE_KEY_SESSIONS, STORAGE_KEY_PRO]);
-  allSessions = data[STORAGE_KEY_SESSIONS] || [];
-  isPro = data[STORAGE_KEY_PRO] === true;
+  const localData = await chrome.storage.local.get([STORAGE_KEY_SESSIONS, STORAGE_KEY_PRO, STORAGE_KEY_THEME]);
+  isPro = localData[STORAGE_KEY_PRO] === true;
+
   if (isPro) {
+    // Pro users: load sessions from sync storage (cross-device)
+    try {
+      const syncData = await chrome.storage.sync.get(STORAGE_KEY_SESSIONS);
+      allSessions = syncData[STORAGE_KEY_SESSIONS] || localData[STORAGE_KEY_SESSIONS] || [];
+    } catch (_) {
+      allSessions = localData[STORAGE_KEY_SESSIONS] || [];
+    }
     elProBadge.classList.remove('hidden');
     elFooterUpgrade.textContent = '✨ Pro Active';
     elFooterUpgrade.style.color = '#f59e0b';
+  } else {
+    allSessions = localData[STORAGE_KEY_SESSIONS] || [];
   }
+
+  // Apply saved theme
+  const theme = localData[STORAGE_KEY_THEME] || 'light';
+  document.body.classList.add('theme-' + theme);
 }
 
 async function loadOpenTabs() {
@@ -64,6 +78,14 @@ async function loadOpenTabs() {
 }
 
 async function saveSessions() {
+  if (isPro) {
+    try {
+      await chrome.storage.sync.set({ [STORAGE_KEY_SESSIONS]: allSessions });
+    } catch (_) {
+      // Sync quota exceeded — fall back to local silently
+    }
+  }
+  // Always write to local as backup / for free users
   await chrome.storage.local.set({ [STORAGE_KEY_SESSIONS]: allSessions });
 }
 
@@ -92,7 +114,7 @@ async function saveSession() {
     title: t.title || 'Untitled',
     url: t.url || '',
     favicon: t.favIconUrl || ''
-  })).filter(t => t.url && !t.url.startsWith('chrome://') && !t.url.startsWith('about:'));
+  })).filter(t => isSaveableUrl(t.url));
 
   if (tabs.length === 0) {
     showToast('No saveable tabs found');
@@ -183,7 +205,7 @@ function renderSessions() {
   elSessionsList.innerHTML = sorted.map(session => {
     const favs = session.tabs.slice(0, 6).map(t => {
       const src = t.favicon || getFaviconUrl(t.url);
-      return '<img class="tab-favicon" src="' + escHtml(src) + '" alt="" onerror="this.src=\'../icons/icon16.png\'">';
+      return '<img class="tab-favicon" src="' + escHtml(src) + '" alt="">';
     }).join('');
     const more = session.tabs.length > 6 ? '<span class="tab-count-more">+' + (session.tabs.length - 6) + '</span>' : '';
     const dateStr = formatDate(session.createdAt);
@@ -203,6 +225,14 @@ function renderSessions() {
       '</div>'
     ].join('');
   }).join('');
+
+  elSessionsList.querySelectorAll('.tab-favicon').forEach((img) => {
+    img.addEventListener('error', () => {
+      if (img.dataset.fallbackApplied === '1') return;
+      img.dataset.fallbackApplied = '1';
+      img.src = '../icons/icon16.png';
+    });
+  });
 }
 
 // Open Tabs Search
@@ -320,6 +350,17 @@ function openUpgrade() {
 }
 
 // Utilities
+const SAVEABLE_PROTOCOLS = new Set(['http:', 'https:', 'file:', 'ftp:', 'chrome-extension:']);
+
+function isSaveableUrl(url) {
+  if (!url) return false;
+  try {
+    return SAVEABLE_PROTOCOLS.has(new URL(url).protocol);
+  } catch (_) {
+    return false;
+  }
+}
+
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
